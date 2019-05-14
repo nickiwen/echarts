@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>特效折线图</title>
+    <style>
+        #container {
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var data = [{
+        value: 0,
+        count: 35,
+        year: '2013年',
+    }, {
+        value: 6,
+        count: 29,
+        year: '2014年',
+    }, {
+        value: 6,
+        count: 29,
+        year: '2015年',
+    }, {
+        value: 10,
+        count: 25,
+        year: '2016年',
+    }, {
+        value: 13,
+        count: 22,
+        year: '2017年',
+
+    }, {
+        value: 18,
+        count: 17,
+        year: '2018年',
+    }, {
+        value: 28,
+        count: '',
+        year: '',
+        symbol: 'image://../img/ding1.png',
+    }]
+
+    var option = {
+        backgroundColor: '#404a59', //整体背景
+        //直角坐标系
+        grid: {
+            left: '2%', //坐标系到左边的距离
+            right: '2%',
+            top: '5%',
+            bottom: '10%',
+        },
+        xAxis: {
+            data: [],
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            },
+            splitLine: {
+                show: false
+            },
+        },
+        yAxis: {
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            },
+            data: []
+        },
+        series: [
+            {
+                name: '特效折线图',
+                type: 'line',
+                showAllSymbol: true, //显示所有图形
+                symbol: 'image://../img/ding.png',
+                symbolSize: 30,
+                label: { //图形上的文本标签
+                    show: true,
+                    position: 'top',
+                    formatter: function (e) {
+                        return e.data.count
+                    },
+                    offset: [0, -15], //偏移量
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16,
+                    }
+                },
+                lineStyle: { //线条样式。
+                    width: 10,
+                    color: '#268b87'
+                },
+                data: data,
+                zlevel: 10,
+                animationDuration: 2000
+            },
+            {
+                name: '',
+                type: 'line',
+                showAllSymbol: true, //显示所有图形
+                symbolSize:0.1,
+                label: { //图形上的文本标签
+                    show: true,
+                    position: 'bottom',
+                    formatter: function (e) {
+                        return e.data.year
+                    },
+                    offset: [0, 30],    //偏移量
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16,
+                    }
+                },
+                lineStyle: { //线条样式。
+                    opacity:0
+                },
+                data: data,
+                zlevel: 1,
+                animationDuration: 2000
+            },
+        ],
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+</html>

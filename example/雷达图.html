@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>雷达图</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+    // http://www.echartsjs.com/gallery/editor.html?c=radar-aqi
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    
+    var option = {
+        backgroundColor: '#161627',
+        title: {
+            text: '雷达图'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        radar:{                              //雷达图使用 radar 组件作为其坐标系
+            indicator: [                     //雷达图的指示器
+                {name: '外观', max: 100},
+                {name: '拍照', max: 100},
+                {name: '系统', max: 100},
+                {name: '性能', max: 100},
+                {name: '屏幕', max: 100}
+            ],
+            name: {                          //雷达图每个指示器名称的配置项。
+                color: 'rgb(238, 197, 102)'
+            },  
+            nameGap:5,                       //指示器名称和指示器轴的距离。
+            splitLine: {                     //坐标轴在 grid 区域中的分隔线样式。
+                lineStyle: {
+                    color: [
+                        'rgba(238, 197, 102, 0.2)', 'rgba(238, 197, 102, 0.3)',
+                        'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+                        'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+                    ].reverse()
+                }
+            },
+            splitArea: {                     //不显示区域
+                show: false
+            },
+            axisLine : {                     //刻度线样式
+                lineStyle: {
+                    color : 'rgb(238, 197, 102)'
+                }
+            },
+            shape:'circle',                 //雷达图绘制类型  支持 'polygon' 和 'circle'
+            center: ['50%','50%'],
+            radius: '80%',
+            startAngle: 90
+
+        },
+
+        series: [
+            {
+                name:'雷达',
+                type: 'radar',
+                symbol:'circle',            //标记的图形。
+                itemStyle: {                //折线拐点标记的样式。
+                    normal: {
+                        color: '#B3E4A1'
+                    }
+                },
+                lineStyle:{                 //线条样式。
+                    normal: {
+                        type:'dotted',
+                        width: 1,
+                        opacity: 0.8
+                    }
+                },
+                areaStyle: {                //区域填充样式。
+                    normal: {
+                        opacity: 0.8
+                    }
+                },
+                label:{                     //图形上的文本标签，可用于说明图形的一些数据信息
+                    normal: {
+                        show:false
+                    }
+                },
+                data: [
+                    {
+                        value: [85, 90, 90, 95, 95],
+                        name: '某手机'
+                    }
+                ]
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    };
+
+</script>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>全国地图突出北京</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script src="../script/map/china.js"></script>
+<script type="text/javascript">
+    function randomValue() {
+        return Math.round(Math.random()*1000);
+    }
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    
+    var option = {
+        backgroundColor: '#404a59',  //整体背景
+        title: {                     //标题
+            text: '成果/需求对接分布图',
+            left: 'center',
+            top:40,
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        legend: {   //导航
+            orient: 'vertical',
+            y: 'bottom',
+            x: 'right',
+            data: ['已对接成果','未对接成果','已对接需求','未对接需求'],    //必须与series一一对应
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        tooltip: {                   //提示框组件。 hover导航框
+            trigger: 'item',
+
+        },
+        /*方法一*/
+        geo: {  //公共的地图geo组件
+            map: 'china',             //中国地图
+            label: {                  //控制省份名
+                normal: {             //正常模式
+                    show:false,
+                },
+                emphasis: {           //hover模式
+                    show: false,
+                }
+            },
+            roam: false, //是否开启平移和缩放
+//            zoom:1.2,
+            itemStyle: {              //控制省份区域（省份块）
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111',
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            },
+            regions: [{   //突出北京
+                name: '北京',
+                itemStyle: {
+                    normal: {
+                        areaColor: 'red',
+                        color: 'red'
+                    }
+                }
+            }]
+        },
+        /*方法二 */
+//        series: [
+//            {
+//                name: '中国',
+//                type: 'map',
+//                map: 'china',
+//                label: {
+//                    normal: {
+//                        show: true
+//                    },
+//                    emphasis: {
+//                        show: true
+//                    }
+//                },
+//                data:[
+//                    {name:'北京', selected:true},
+//                ]
+//            }
+//        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</html>

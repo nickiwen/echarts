@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>全国地图发光效果</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script src="../script/map/china.js"></script>
+<script type="text/javascript">
+    // 全国地图发光的实现方法 
+    // 在geo组件上设置发光的地图
+    // series.map设置不发光的地图  
+    // 用series.map覆盖geo组件
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    
+    function randomValue() {
+        return Math.round(Math.random() * 100);
+    }
+
+    var option = {
+        backgroundColor: '#000', //整体背景
+        geo: {
+            map: 'china',
+            label: { //控制省份名
+                normal: { //正常模式
+                    show: false
+                },
+                emphasis: { //hover模式
+                    show: false
+                }
+            },
+            zoom: 1.2,
+            aspectScale: 0.75,
+            itemStyle: {
+                normal: {
+                    areaColor: 'rgba(2,100,195,0.5)',
+                    borderColor: '#02d1fd',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 120,
+                    shadowColor: 'rgb(2,209,253,0.7)'
+                }
+            }
+        },
+        series: [{
+            name:'省份',
+            showLegendSymbol: false,    // 存在legend时不显示 
+            type: 'map',
+            map: 'china',
+            label: { //控制省份名
+                normal: { //正常模式
+                    show: false
+                },
+                emphasis: { //hover模式
+                    show: false
+                }
+            },
+            zoom: 1.2,
+            aspectScale: 0.75,
+            itemStyle: {
+                normal: {
+                    areaColor: 'rgba(2,100,195,0.5)',
+                    borderColor: '#02d1fd',
+                },
+                emphasis: {
+                    areaColor: 'rgba(118,237,236,0.8)',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            zlevel: 1,
+            data: [
+                {"name": "北京", "value": 395, "percent": "39.3%"},
+                {"name": "天津", "value": 17, "percent": "1.7%"},
+                {"name": "上海", "value": 210, "percent": "20.9%"},
+                {"name": "重庆", "value": 5, "percent": "0.5%"},
+                {"name": "河北", "value": 0, "percent": "0%"},
+                {"name": "河南", "value": 3, "percent": "0.3%"},
+                {"name": "云南", "value": 0, "percent": "0%"},
+                {"name": "辽宁", "value": 5, "percent": "0.5%"},
+                {"name": "黑龙江", "value": 3, "percent": "0.3%"},
+                {"name": "湖南", "value": 0, "percent": "0%"},
+                {"name": "安徽", "value": 12, "percent": "1.2%"},
+                {"name": "山东", "value": 10, "percent": "1%"},
+                {"name": "新疆", "value": 0, "percent": "0%"},
+                {"name": "江苏", "value": 42, "percent": "4.2%"},
+                {"name": "浙江", "value": 66, "percent": "6.6%"},
+                {"name": "江西", "value": 3, "percent": "0.3%"},
+                {"name": "湖北", "value": 15, "percent": "1.5%"},
+                {"name": "广西", "value": 0, "percent": "0%"},
+                {"name": "甘肃", "value": 0, "percent": "0%"},
+                {"name": "山西", "value": 0, "percent": "0%"},
+                {"name": "内蒙古", "value": 0, "percent": "0%"},
+                {"name": "陕西", "value": 17, "percent": "1.7%"},
+                {"name": "吉林", "value": 0, "percent": "0%"},
+                {"name": "福建", "value": 16, "percent": "1.6%"},
+                {"name": "贵州", "value": 0, "percent": "0%"},
+                {"name": "广东", "value": 165, "percent": "16.4%"},
+                {"name": "青海", "value": 0, "percent": "0%"},
+                {"name": "西藏", "value": 0, "percent": "0%"},
+                {"name": "四川", "value": 20, "percent": "2%"},
+                {"name": "宁夏", "value": 0, "percent": "0%"},
+                {"name": "海南", "value": 0, "percent": "0%"},
+                {"name": "台湾", "value": 0, "percent": "0%"},
+                {"name": "香港", "value": 0, "percent": "0%"},
+                {"name": "澳门", "value": 0, "percent": "0%"}
+            ]
+        }]
+    
+     }
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+
+    };
+</script>
+
+</html>

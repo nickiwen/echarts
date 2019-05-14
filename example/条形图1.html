@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>条形图1</title>
+    <style>
+        #right{
+            width: 473px;
+            height: 306px;
+        }
+    </style>
+</head>
+<body>
+<div id="right"></div>
+
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("right"));
+    var app = {};
+    app.title = '';
+
+    var option = {
+        backgroundColor: '#404a59',  //整体背景
+        title: {
+            text: '成果/需求领域分布图',
+            left: 'center',
+            top: 10,
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',           //提示框组件
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['成果', '需求'],    //必须与series一一对应
+            orient: 'vertical',
+            top: 'bottom',
+            left: '10',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        //直角坐标系
+        grid: {
+            show:false,
+            left: 100,                  //坐标系到左边的距离
+            right: 45,                   //坐标系到右边的距离
+            bottom:0,                   //坐标系到下边的距离
+            containLabel: true           //是否包含坐标轴的刻度标签。
+        },
+        xAxis: {
+            type: 'category',             //类目轴
+            data: ['互联网', '人工智能','电子信息', '其他','自动化'],
+            splitLine: {                  //坐标轴在 grid 区域中的分隔线设置。
+                show: true,
+                lineStyle:{
+                    color:'#fff'
+                }
+            },
+            axisLine:{                        //坐标轴轴线相关设置。
+                lineStyle:{
+                    color:'#9fdabf'           //坐标轴颜色
+                }
+            },
+            axisTick: { show: false },     //坐标轴刻度相关设置。
+            axisLabel: {                    //坐标轴标签的相关设置。轴下面的字
+                show: true,
+                color: 'cyan'
+            }
+        },
+        yAxis: {
+            type: 'value',                //数值轴
+            splitLine: {                  //坐标轴在 grid 区域中的分隔线设置。
+                show: true,
+                lineStyle:{
+                    color:'#fff'
+                }
+            },
+            axisLine:{                    //坐标轴轴线相关设置。
+                lineStyle:{
+                    color:'#9fdabf'           //坐标轴颜色
+                }
+            },
+            axisTick: { show: false },     //坐标轴刻度相关设置。
+            axisLabel: {                    //坐标轴标签的相关设置。轴下面的字
+                show: true,
+                rotate:50,                  //刻度标签旋转的角度，在类目轴的类目标签显示不下的时候可以通过旋转防止标签之间重叠 旋转的角度从 -90 度到 90 度。
+                color: 'cyan'
+            }
+
+        },
+        series: [
+            {
+                name: '成果',
+                type: 'bar',
+                data: [18203, 23489, 29034, 104970,23489],
+                silent: true,
+                barWidth:20,        //柱条宽度
+                barGap:'1%',        //柱条间距
+                itemStyle: {
+                    normal: { color: '#ffc917' }
+                }
+            },
+            {
+                name: '需求',
+                type: 'bar',
+                data: [19325, 23438, 31000, 121594,23489],
+                z: 10,
+                barWidth:20,
+                itemStyle: {
+                    normal: { color: '#00ffec' }
+                }
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+</script>
+</html>

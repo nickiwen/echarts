@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>极坐标条形图</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    var arr1=["能源与节能","材料", "先进制造与自动化",  "电子信息", "其他"];
+    var arr2=[2234,4448, 5142,8442, 3132];
+
+    var option = {
+        backgroundColor: '#404a59',  //整体背景
+        title: {
+            text: '领域转化量分布图',
+            top: '10',
+            left: 'center',
+            textStyle: {
+                color: '#fff',
+                fontWeight: 100,
+                fontSize: 20
+            }
+        },
+        color: ['#c23531', '#ffc917', '#61a0a8', '#00ffec', '#91c7ae'],
+        legend: {
+            data: [{            //必须与series一一对应
+                name: '领域转化量'
+
+            }],
+            orient: 'vertical',
+            top: 'bottom',
+            left: 0,
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        polar: {                    //极坐标系 必须有
+            center:['50%','60%'],   //极坐标的圆心
+            radius:'60%'            //极坐标的半径
+        },
+        angleAxis: {
+            type: 'category',    //极坐标系角度轴 必须有
+            startAngle: 90,
+            data:arr1,
+            axisLine: {                    //坐标轴轴线相关设置。
+                lineStyle: {
+                    color: '#cccccc'      //坐标轴颜色
+                }
+            },
+            axisTick: { show: true },      //坐标轴刻度相关设置。
+            axisLabel: {
+                show: true,
+                color: '#fff'
+            }
+        },
+        radiusAxis: {                     //极坐标系径向轴 必须有
+            axisLine: {                    //坐标轴轴线相关设置。
+                lineStyle: {
+                    color: '#cccccc'      //坐标轴颜色
+                }
+            },
+            axisTick: { show: true },      //坐标轴刻度相关设置。
+            axisLabel: {
+                show: true,
+                color: '#fff',
+                fontSize:10
+            }
+        },
+        series: [{
+            name: '领域转化量',
+            type: 'bar',
+            data:arr2,
+            center:['50%','60%'],      //series图的圆心 应该与polar极坐标系的圆心一致  比较特殊 文档没有
+            coordinateSystem: 'polar'  //采取极坐标方法 必须有
+        }]
+
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+</script>
+</html>

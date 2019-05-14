@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>北京地图</title>
+    <link rel="stylesheet" href="../script/css/reset.css">
+    <style>
+        body{
+            width: 1000px;
+            height: 800px;
+            background: url("http://www.zgcjm.org/assets/images/doubleInnovateBg.png") no-repeat;
+            background-size:1000px 800px ;
+        }
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/jquery-1.7.2.min.js"></script>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    $.get('../script/json/beijing.json', function (geoJson) {
+        echarts.registerMap('beijing', geoJson);
+
+        myChart.setOption({
+            backgroundColor: 'transparent',  //整体背景
+            title: {                     //标题
+                text: '海淀区',
+                left: 'center',
+                textStyle: {
+                    color: '#fff',
+                    fontWeight:100,
+                    fontSize:30,
+                }
+            },
+            tooltip: {                   //提示框组件。 hover导航框
+                trigger: 'item',
+                formatter: function (res) {        //导航框内容  可以写标签哦！！！
+                    //console.log(res)
+                    return res.data.Type == "成果" ? '<div style="padding:0 10px;"><p >成果名称：' + res.data.Title + '</p><p>所属单位：' + res.data.CompanyName + '</p><p>发布时间：' + res.data.PublishTime + '</p><p>成果状态：' + res.data.Status + '</p><p>隶属领域：' + res.data.FieldName + '</p><p>该领域所在省在全国的占比：' + res.data.Percent + '</p></div>' : '<div style="padding:0 10px;"><p >需求名称：' + res.data.Title + '</p><p>所属单位：' + res.data.CompanyName + '</p><p>发布时间：' + res.data.PublishTime + '</p><p>成果状态：' + res.data.Status + '</p><p>隶属领域：' + res.data.FieldName + '</p><p>该领域所在省在全国的占比：' + res.data.Percent + '</p></div>'
+                }
+            },
+            /*方法一*/
+            geo: {
+                map: 'beijing',             //中国地图
+                label: {                  //控制省份名
+                    normal: {             //正常模式
+                        show: false,
+                    },
+                    emphasis: {           //hover模式
+                        show: false,
+                    }
+                },
+                roam: true, //是否开启平移和缩放
+                center: [116.25,40.02],
+                zoom: 6,
+                itemStyle: {              //控制省份区域（省份块）
+                    normal: {
+                        areaColor: 'transparent',
+                        borderColor: 'rgba(118,237,236,0.8)',
+                    },
+                    emphasis: {
+                        areaColor: 'transparent'
+                    }
+                },
+                regions: [{   //海淀
+                    name: '海淀区',
+                    label: {                  //控制省份名
+                        normal: {             //正常模式
+                            show: true,
+                            textStyle: { color: '#fff', fontFamily: '微软雅黑'},
+                        },
+                        emphasis: {           //hover模式
+                            show: true,
+                            textStyle: { color: '#fff', fontFamily: '微软雅黑' }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#c23531',
+                        },
+                        emphasis: {
+                            areaColor: '#c23531'
+                        }
+                    }
+                }]
+            },
+            /*方法二*/
+//            series: [
+//                {
+//                    type: 'map',
+//                    map: 'shanghai',
+//                    label: {
+//                        emphasis: {
+//                            textStyle: {
+//                                color: '#fff'
+//                            }
+//                        }
+//                    },
+//                    itemStyle: {
+//                        normal: {
+//                            borderColor: '#389BB7',
+//                            areaColor: '#fff',
+//                        },
+//                        emphasis: {
+//                            areaColor: '#389BB7',
+//                            borderWidth: 0
+//                        }
+//                    },
+//                    animation: false
+//                }
+//            ]
+        });
+    });
+</script>
+</html>

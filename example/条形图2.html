@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>条形图2</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("container"));
+    var app = {};
+    app.title = '';
+
+    var option = {
+        title: {
+            text: '成果需求转化',
+            subtext: '数据来自创客天下'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['成果', '需求']    //必须与series一一对应
+        },
+        //直角坐标系
+        grid: {
+            left: '3%',      //坐标系到左边的距离
+            right: '4%',     //坐标系到右边的距离
+            bottom: '3%',   //坐标系到下边的距离
+            containLabel: true  //是否包含坐标轴的刻度标签。
+        },
+        xAxis: {
+            type: 'value',
+            axisTick: {show: false},
+            boundaryGap: ['0%', '10%'],   //坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。
+        },
+        yAxis: {
+            type: 'category',
+            data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)'],
+            splitLine: {show: false}
+        },
+        animationDurationUpdate: 1200,
+        series: [
+            {
+                name: '成果',
+                type: 'bar',
+                data: [18203, 23489, 29034, 104970, 131744, 630230],
+                silent: true,
+                barWidth: 40,
+                barGap: '-100%' // Make series be overlap
+            },
+            {
+                name: '需求',
+                type: 'bar',
+                data: [19325, 23438, 31000, 121594, 134141, 681807],
+                barWidth: 40,
+                z: 10
+            }
+        ]
+    };
+    var barGaps = ['30%', '-100%'];
+    var loopIndex = 0;
+
+    setInterval(function () {
+        var barGap = barGaps[loopIndex];
+
+        myChart.setOption({
+            xAxis: {
+                axisLabel: {
+                    formatter: 'barGap: \'' + barGap + '\''
+                }
+            },
+            series: [{
+                barGap: barGap
+            }]
+        });
+        loopIndex = (loopIndex + 1) % barGaps.length;
+
+    }, 2000);
+    
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+</script>
+</html>

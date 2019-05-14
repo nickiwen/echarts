@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>条形图和折线图</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script type="text/javascript">
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        legend: {
+            data:['市场规模','增长率']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ['2015','2016','2017','2018','2019','2020'],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '市场规模',
+                min: 0,
+                max: 1200,
+                interval: 200,
+                axisLabel: {
+                    formatter: '{value} 亿元'
+                }
+            },
+            {
+                type: 'value',
+                name: '增长率',
+                min: 0,
+                max: 90,
+                interval: 15,
+                axisLabel: {
+                    formatter: '{value} %'
+                }
+            }
+        ],
+        series: [
+            {
+                name:'市场规模',
+                type:'bar',
+                barWidth:20,        //柱条宽度
+                barGap:'1%',        //柱条间距
+                label: {
+                    normal: {
+                        position: 'top',
+                        color:'#033efc',
+                        show: true
+                    }
+                },
+                itemStyle: {
+                    normal: { color: '#0396fd' }
+                },
+                data:[112, 143, 240, 420, 698 , 978]
+            },
+            {
+                name:'增长率',
+                type:'line',
+                yAxisIndex: 1,
+                data:[{},28,68,75,66,40]
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+</script>
+</html>

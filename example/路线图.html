@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>路线图</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+
+</head>
+<body >
+<div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script src="../script/map/china.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    var option = {
+        backgroundColor: '#404a59',  //整体背景
+        title: {                     //标题
+            text: '成果/需求对接分布图',
+            left: 'center',
+            top:40,
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        legend: {   //导航
+            orient: 'vertical',
+            y: 'bottom',
+            x: 'right',
+            data: ['已对接成果','未对接成果','已对接需求','未对接需求'],    //必须与series一一对应
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        geo: {
+            map: 'china',             //中国地图
+            label: {                  //控制省份名
+                normal: {             //正常模式
+                    show:false,
+                },
+                emphasis: {           //hover模式
+                    show: false,
+                }
+            },
+            roam: false, //是否开启平移和缩放
+            zoom:1.2,
+            itemStyle: {              //控制省份区域（省份块）
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111',
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        tooltip: {                   //提示框组件。 hover导航框
+            trigger: 'item',
+//            formatter: (data)=>{        //导航框内容  可以写标签哦！！！
+//                console.log(data)
+//                return  '<div style="background: red">123</div>'
+//            }
+        },
+        series: [
+
+            {
+                name: '连线',
+                type: 'lines',                //用于带有起点和终点信息的线数据的绘制，主要用于地图上的航线，路线的可视化。
+                zlevel: 2,
+                effect: {               //线的运行特效
+                    show: true,
+                    period: 4,      //运行时间
+                    symbol: 'triangle',  //头的形状
+                    symbolSize: 3,       //头的大小
+                    trailLength: 0.3,    //特效尾迹的长度。取从 0 到 1 的值，数值越大尾迹越长。
+                    color: 'rgba(244,233,37,0.8)',
+                },
+                symbol: ['none', 'triangle'],   //线两端的标记类型
+                lineStyle: {
+                    normal: {
+                        color: 'rgba(30,144,255,0.5)',
+                        width: 3,
+                        shadowBlur: 20,
+                        shadowColor: 'rgba(30,144,255,0.2)',
+                        curveness: 0.2                   //曲度
+                    }
+                },
+                data:[
+                        {coords:[[116.46, 39.92],[121.48, 31.22]]},
+                        {coords:[[116.46, 39.92],[101.48, 41.22]]},
+                        {coords:[[116.46, 39.92],[151.48, 31.22]]},
+                        {coords:[[116.46, 39.92],[181.48, 11.22]]}
+                ]
+            },
+
+
+
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>scatterGL</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts4.js"></script>
+<script src="../script/echarts-gl.js"></script>
+<script src="../script/map/world.js"></script>
+<script type="text/javascript">
+    /*   文档
+     *   http://www.echartsjs.com/api.html#echarts
+     *
+     * */
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    option = {
+        backgroundColor: '#000',
+        title: {
+            text: '10000000 GPS Points',
+            left: 'center',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        geo: {
+            map: 'world',
+            roam: true,
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            silent: true,
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        series: [{
+            name: '弱',
+            type: 'scatterGL',
+            coordinateSystem: 'geo',
+            symbolSize: 1,
+            itemStyle: {
+                color: 'rgb(20, 15, 2)'
+            },
+            silent: false,  //是否不响应和触发鼠标事件
+            progressiveThreshold: 1e5, //启用渐进渲染的阈值
+            progressive: 1e5, //渐进渲染每次渲染的数据量。
+            large: false, //是否加大
+            zoomScale: 0,// symbolSize scale when zooming.
+            // Support source-over, lighter
+            blendMode: 'source-over', //混合模式，目前支持'source-over'，'lighter'，默认使用的'source-over'是通过 alpha 混合，而'lighter'是叠加模式，该模式可以让数据集中的区域因为叠加而产生高亮的效果。
+            postEffect: { //曝光度对比度等等
+                enable: false,
+                colorCorrection: {
+                    exposure: 0,
+                    brightness: 0,
+                    contrast: 1,
+                    saturation: 1,
+                    enable: true
+                }
+            }
+        }]
+    };
+
+    if (option && typeof option === "object") {
+        // myChart.setOption(option, true);
+    };
+</script>
+
+</html>

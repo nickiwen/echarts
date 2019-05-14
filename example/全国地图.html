@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <title>全国地图</title>
+    <style>
+        #container{
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script src="../script/echarts.js"></script>
+<script src="../script/map/china.js"></script>
+<script type="text/javascript">
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    var option = {
+        tooltip: {},
+        /*方法一*/
+        // geo: {
+        //     map: 'china',
+        //     roam: true,
+        //     zoom: 1.2,
+        //     aspectScale: 0.75,
+        //     label: {
+        //         normal: {
+        //             show: true,
+        //             textStyle: {
+        //                 color: 'rgba(0,0,0,0.4)'
+        //             }
+        //         }
+        //     },
+        //     itemStyle: {
+        //         normal: {
+        //             areaColor: 'rgba(0,255,236,0.1)',
+        //             borderColor: 'rgba(118,237,236,1)',
+        //         },
+        //         emphasis: {
+        //             areaColor: 'rgba(118,237,236,0.8)',
+        //             shadowOffsetX: 0,
+        //             shadowOffsetY: 0,
+        //             shadowBlur: 20,
+        //             borderWidth: 0,
+        //             shadowColor: 'rgba(0, 0, 0, 0.5)'
+        //         }
+        //     }
+        // },
+        /*方法二 */
+        series: [{
+            name: '省',
+            type: 'map',
+            map: 'china',
+            roam: true,
+            zoom: 1.2,
+            aspectScale: 0.75,
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(0,0,0,0.4)'
+                    }
+                }
+            },
+            itemStyle: {
+                normal: {
+                    areaColor: 'rgba(0,255,236,0.1)',
+                    borderColor: 'rgba(118,237,236,1)',
+                },
+                emphasis: {
+                    areaColor: 'rgba(118,237,236,0.8)',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 20,
+                    borderWidth: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+
+    };
+</script>
+
+</html>
